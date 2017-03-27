@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <table class="table table-hover table-striped table-condensed" cellspacing="0" style="border-collapse:collapse;">
+                <thead>
+                    <tr class="tr-header">
+                        <th scope="col">N° envio</th>
+                        <th scope="col">Fecha Entrega</th>
+                        <th scope="col">Bienes</th>
+                        <th scope="col"><i class="fa fa-times" aria-hidden="true" style="cursor:pointer;"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="envio in transferencia.envios" ng-click="editEnvio(envio)">
+                        <td> <input type="hidden" name="{{getId(bien)}}" value="{{bien.Id}}" />{{envio.id}}</td>
+                        <td>{{envio.fechaEntrega | date:'dd/MM/yyyy'}}</td>
+                        <td>{{envio.bienes.length}}</td>
+                        <td ng-click="removeBien(bien)">+</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

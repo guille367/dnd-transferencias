@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h2>Items en depósito</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <label>Rubro Patrimonial</label>
+                <select id="ddlRubroPatrimonial" ng-model="subcuenta" class="form-control" ng-change="ddlRubrosChange(this)"></select>  <!--LO BINDEA DESDE EL JS-->
+            </div>
+            <div class="col-md-5">
+                <label> Clase de catálogo</label>
+                <select id="ddlClaseDeCatalogo" ng-model="clase" class="form-control" ng-options="c.Descripcion for c in ClasesDeCatalogo"></select>
+            </div>
+            <div class="col-md-2">
+                <label> &nbsp; </label>
+                <button type="button" class="btn btn-primary pull-left" ng-click="buscarItems()" ng-disabled="(clase == null || clase == undefined)">
+                    <span><i class="fa fa-search"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div ng-show="MostrarMensajeSinResultados()">
+            <div class="alert alert-info">
+                <p>No se han encontrado resultados para esta búsqueda</p>
+            </div>
+        </div>
+
+        <div ng-show="SinOrigen">
+            <div class="alert alert-danger">
+                <p>Debe seleccionar un origen</p>
+            </div>
+        </div>
+
+        <div ng-show="errorCantidad">
+            <div class="alert alert-danger">
+                <p>Ingrese la cantidad</p>
+            </div>
+        </div> 
+
+        <div id="resultados">
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <table class="table table-hover table-striped table-condensed" cellspacing="0" style="border-collapse:collapse;">
+                        <thead>
+                            <tr class="tr-header">
+                                <th scope="col">Código</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col"><i class="fa fa-plus" style="cursor:pointer;" aria-hidden="true" ng-show="mostrarAgregarTodos(ItemsDeposito)" ng-click="AddItemsPage(ItemsDeposito)"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in ItemsDeposito">
+                                <td>{{item.Codigo}}</td>
+                                <td>{{item.Descripcion}}</td>
+                                <td><input type="number" min="1" value="1" class="form-control" ng-model="item.Cantidad" /></td>
+                                <td><i class="fa fa-plus" aria-hidden="true" style="color:black;cursor:pointer;" ng-hide="existeBien(item)" ng-click="AddItem(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <pagination-search></pagination-search>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../Scripts/solicitud-bien/solicitud-bien.js"></script>

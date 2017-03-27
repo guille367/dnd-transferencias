@@ -1,0 +1,72 @@
+﻿<div class="row">
+    <div class="col-md-3 form-group">
+        <label>Nº inventario</label>
+        <input type="number" ng-model="bienesFilter.Id" class="form-control" />
+    </div>
+    <div class="col-md-3 form-group">
+        <label>Rubro patrimonial</label>
+        <input type="text" ng-model="bienesFilter.RubroPatrimonial" class="form-control" />
+    </div>
+    <div class="col-md-3 form-group">
+        <label>Cód. R. Patrimonial</label>
+        <input type="text" ng-model="bienesFilter.CodigoRubroPatrimonial" class="form-control" />
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Ejercicio</label>
+        <input type="number" min="1" max="{{CurrentYear}}" ng-model="bienesFilter.Ejercicio" class="form-control" />
+    </div>
+    <div class="col-md-1 form-group">
+        <label></label>
+        <button type="button" ng-click="GoToFirstPage()" 
+                ng-disabled="!(!!bienesFilter.Id || !!bienesFilter.RubroPatrimonial ||
+                !!bienesFilter.CodigoRubroPatrimonial || !!bienesFilter.Ejercicio)" class="btn btn-primary pull-left ">
+            <span ng-show="buscando"><i class="glyphicon glyphicon-refresh spinning"></i></span>
+            <span ng-hide="buscando"><i class="fa fa-search"></i></span>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div ng-show="bienesCtrl.MostrarMensajeSinResultados()">
+            <div class="alert alert-info">
+                <p>No se han encontrado resultados para esta búsqueda</p>
+            </div>
+        </div>
+        
+        <div ng-show="SinOrigen">
+            <div class="alert alert-danger">
+                <p>Debe seleccionar un origen</p>
+            </div>
+        </div>    
+
+        <div id="resultados" ng-show="bienesCtrl.MostrarResultados()">
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <table class="table table-hover table-striped table-condensed" cellspacing="0" style="border-collapse:collapse;">
+                        <thead>
+                            <tr class="tr-header">
+                                <th scope="col">N° Inventario</th>
+                                <th scope="col">Rubro patrimonial</th>
+                                <th scope="col">Ejercicio</th>
+                                <th scope="col"><i class="fa fa-plus" style="cursor:pointer;" aria-hidden="true" ng-show="mostrarAgregarTodos(Bienes.Items)" ng-click="AddBienesPage(Bienes.Items)"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="bien in Bienes.Items">
+                                <td>{{bien.Id}}</td>
+                                <td>{{bien.RubroPatrimonialCodigoYDesc}}</td>
+                                <td>{{bien.Ejercicio}}</td>
+                                <td><i class="fa fa-plus" aria-hidden="true" style="color:black;cursor:pointer;" ng-hide="existeBien(bien)" ng-click="AddBien(bien)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <pagination-search></pagination-search>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

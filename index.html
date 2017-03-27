@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<script type="text/javascript" src="node_modules/angular/angular.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
+
+	<script type="text/javascript" src="Controllers/EnviosController.js"></script>
+	<script type="text/javascript" src="Controllers/GeneralController.js"></script>
+	<script type="text/javascript" src="Controllers/BienController.js"></script>
+
+	<script type="text/javascript" src="Services/BienService.js"></script>
+
+	<script type="text/javascript" src="Models/Transferencia.js"></script>
+	<script type="text/javascript" src="Models/Envio.js"></script>
+	<script type="text/javascript" src="Models/Bienes.js"></script>
+	<script type="text/javascript" src="Models/transferenciaMock.js"></script>
+	<script type="text/javascript" src="Models/envioMock.js"></script>
+
+	<script type="text/javascript" src="Directives/EnviosTransferenciaDirective.js"></script>
+	<script type="text/javascript" src="Directives/BienesAgregadosDirective.js"></script>
+	<script type="text/javascript" src="Directives/BienesBusquedaDirective.js"></script>
+
+	<script src="angular-dragdrop.min.js"></script>
+
+</head>
+<body ng-app='ngApp' ng-controller='enviosController'>
+
+<!--<select>
+	<option ng-repeat='i in items' value='{{i.id}}'>{{i.desc}}</option>
+</select>-->
+
+<div class="row">
+	<div class="col-md-6">
+		<envios-transferencia></envios-transferencia>
+	</div>
+	<div class="col-md-6">
+		<bienes-agregados></bienes-agregados>	
+	</div>	
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel-body collapse in">
+            <table class="table table-hover table-striped table-condensed" cellspacing="0" style="border-collapse:collapse;">
+                <thead>
+                    <tr class="tr-header">
+                        <th scope="col">N° Inventario</th>
+                        <th scope="col">Rubro patrimonial</th>
+                        <th scope="col">Ejercicio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody dnd-list="bienes">
+                    <tr ng-repeat="bien in bienes" dnd-draggable="bien" dnd-moved="bienes.removeBien(bien)"
+                    	dnd-effect-allowed="move">  <!-- dnd-disable-if="existeBien(bien)" -->
+                        <td>{{bien.id}}</td>
+                        <td>{{bien.rubroPatrimonialCodigoYDesc}}</td>
+                        <td>{{bien.ejercicio}}</td>
+                        <td><div class="btn btn-primary" ng-show="!existeBien(bien)" ng-click="envio.addBien(bien)">+</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+	</div>
+</div>
+
+</body>
+</html>

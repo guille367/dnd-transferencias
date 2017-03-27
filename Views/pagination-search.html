@@ -1,0 +1,32 @@
+﻿<div ng-show="pageCount > 1">
+    <span>Página {{currentPage}} de {{pageCount}}</span>
+    <div class="pagination-container">
+        <ul class="pagination">
+            <li class="PagedList-skipToFirst" ng-show="currentPage > 6">
+                <a style="cursor:pointer" ng-click="$emit('GoToFirstPage')">««</a>
+            </li>
+            <li class="PagedList-skipToPrevius" ng-show="currentPage > 1">
+                <a style="cursor:pointer" ng-click="$emit('GoToPreviusPage')">«</a>
+            </li>
+            <li class="disabled PagedList-ellipses" ng-show="currentPage > 6">
+                <a>...</a>
+            </li>
+
+            <li style="cursor:pointer" ng-repeat="n in range(pageCount)"
+                ng-class="{active: n == currentPage}"
+                ng-show="(n > (currentPage - 4)) && (n < (currentPage + 4))"
+                ng-click="$emit('GoToPage',n)">
+                <a ng-bind="n">1</a>
+            </li>
+            <li class="disabled PagedList-ellipses" ng-show="currentPage < (pageCount - 5)">
+                <a>...</a>
+            </li>
+            <li class="PagedList-skipToNext" ng-show="currentPage < pageCount">
+                <a style="cursor:pointer" ng-click="$emit('GoToNextPage')">»</a>
+            </li>
+            <li class="PagedList-skipToLast" ng-show="currentPage < pageCount">
+                <a style="cursor:pointer" ng-click="$emit('GoToLastPage')">»»</a>
+            </li>
+        </ul>
+    </div>
+</div>
